@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.lucene.analysis.CharArraySet;
+import static org.apache.lucene.analysis.StopFilter.makeStopSet;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -19,34 +22,31 @@ import org.apache.lucene.document.Document;
 
 public class Index {
     
+    private final String index_path = "Index\\";
     private String collection_path;
     private ArrayList<Article> articles;
     private IndexWriter writer; 
-    private String []stopwords;
+    private CharArraySet stopwords;
     
-// ----------------------------------------------------------------------------- 
     
-    public Index() throws IOException {
-        this.stopwords = new String[346];
+// -----------------------------------------------------------------------------
+    
+    public Index(String collection_path) throws IOException 
+    {
+        this.collection_path = collection_path;
         articles = new ArrayList<>();
         read_stopwords();
-    }
-// -----------------------------------------------------------------------------
-    
-    public Index(String collection_path) 
-    {
-        this.stopwords = new String[343];
-        this.collection_path = collection_path;
+        init_writer();
     }
     
 // -----------------------------------------------------------------------------
     
-    public void init_writer(String indexDirectoryPath) throws IOException 
+    public void init_writer() throws IOException 
     {        
-      Path path = Paths.get("Index\\");
+      Path path = Paths.get(index_path);
       Directory directory = FSDirectory.open(path);
-      StandardAnalyzer analyzer = new StandardAnalyzer();
       
+      StandardAnalyzer analyzer = new StandardAnalyzer(stopwords);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
       writer = new IndexWriter(directory, config);
    }
@@ -63,15 +63,14 @@ public class Index {
     
     private void read_stopwords() throws IOException
     {
-        String file_stopwords = Tools.read_file("stopwords.txt");
+        String stopwords_file = Tools.read_file("stopwords.txt");
         Pattern regex = Pattern.compile("[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+");
-        Matcher matches = regex.matcher(file_stopwords);
+        Matcher matches = regex.matcher(stopwords_file);
         
-        int counter = 0;
+        List<String> aux_stopwords = new ArrayList<>();
         while (matches.find())
-        {
-            stopwords[counter] = Tools.delete_accents(matches.group());
-            counter++;
-        }
-    }    
+            aux_stopwords.add(Tools.delete_accents(matches.group()));
+        
+        stopwords = makeStopSet(aux_stopwords, false);
+    }
 }
