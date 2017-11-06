@@ -1,21 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ir_lucene;
 
-/**
- *
- * @author Andrey
- */
+import Model.Tools;
+import Controller.Index;
+import Model.Article;
+import java.text.Normalizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+
+
+
+
 public class IR_Lucene {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        System.out.println("Hola");
+    
+    public static void main(String[] args) throws Exception 
+    {
+        Index idx = new Index();
+        String file_path = "..\\Geografia\\América\\Estados_soberanos\\Antigua_y_Barbuda.htm";
+        Article ayb = new Article(file_path, "AyB");       
+
     }
     
 }
