@@ -4,15 +4,6 @@ package ir_lucene;
 import Model.Tools;
 import Controller.Index;
 import Model.Article;
-import java.text.Normalizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
-
-
-
 
 public class IR_Lucene {
 

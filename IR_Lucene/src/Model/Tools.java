@@ -46,8 +46,7 @@ public class Tools {
     
     public static String delete_accents(String input)
     {
-        String result = input.toLowerCase();
-        result = result.replaceAll("ñ", "<n>");
+        String result = input.replaceAll("ñ", "<n>");
         result = Normalizer.normalize(result, Normalizer.Form.NFKD);
         result = result.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         result = result.replaceAll("<n>", "ñ");
