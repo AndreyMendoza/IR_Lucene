@@ -15,11 +15,11 @@ public class Tools {
 
 // -----------------------------------------------------------------------------
     
-    public File[] get_dir_files(String dir_path) 
+    public static File[] get_dir_files(String dir_path) throws IOException 
     {
         File cur_dir = new File(dir_path);
         File[] file_list = cur_dir.listFiles();
-        
+ 
         return file_list;
     }
     
@@ -46,14 +46,12 @@ public class Tools {
     
     public static String delete_accents(String input)
     {
-        String result = input.replaceAll("ñ", "<n>");
+        String result = input.replaceAll("ñ|Ñ", "<n>");
         result = Normalizer.normalize(result, Normalizer.Form.NFKD);
         result = result.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         result = result.replaceAll("<n>", "ñ");
         return result;
     }
     
-// -----------------------------------------------------------------------------
-   
-    
+// ----------------------------------------------------------------------------- 
 }
