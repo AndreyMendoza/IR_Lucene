@@ -31,6 +31,11 @@ public class DTOSearch {
 // -----------------------------------------------------------------------------    
     
     public DTOSearch () {
+
+    }
+
+    public DTOSearch(JLabel labindexname) {
+        init(labindexname);
     }
     
 // ----------------------------------------------------------------------------- 
@@ -71,6 +76,18 @@ public class DTOSearch {
             JOptionPane.showMessageDialog(null, "Cannot open the selected folder or "
                                                 + "it doesn't contain a valid index");
             labindexname.setText("<<No index has been selected yet>>");
+        }
+    }
+    
+// -----------------------------------------------------------------------------   
+    
+    private void init(JLabel init){
+        try{
+            Path path = Paths.get("Index\\");
+            searcher.load_index(path);
+            init.setText("...\\Index\\");
+        }catch(Exception e){
+            
         }
     }
     

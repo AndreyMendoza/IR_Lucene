@@ -26,13 +26,14 @@ import javax.swing.table.DefaultTableModel;
 public class Main extends javax.swing.JFrame {
     
     DTOIndex dtoi = new DTOIndex();
-    DTOSearch dtos = new DTOSearch();
+    DTOSearch dtos;
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        this.dtos = new DTOSearch(labindexname);
         tablaresults.getColumn("Pos").setMaxWidth(100);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
