@@ -47,6 +47,7 @@ public class DTOSearch {
                 String name = finaldoc.get("nombre");
                 String path = finaldoc.get("ruta");
                 model.addRow(new Object[]{i, name, path});
+                i++;
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Index is not initialized or is damaged");

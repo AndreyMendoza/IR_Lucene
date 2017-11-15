@@ -7,12 +7,16 @@ package View;
 
 import Controller.DTOIndex;
 import Controller.DTOSearch;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,6 +33,14 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        tablaresults.getColumn("Pos").setMaxWidth(100);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        tablaresults.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        tablaresults.addMouseListener(new java.awt.event.MouseAdapter() {
+                                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                    tablaresultsMouseClicked(evt);
+                                }});
     }
 
     /**
@@ -163,9 +175,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tabindexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dirlab)
-                    .addComponent(indexlab))
+                .addGroup(tabindexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(indexlab, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dirlab))
                 .addGroup(tabindexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabindexLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
@@ -381,7 +393,20 @@ public class Main extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_browseindexActionPerformed
-
+    private void tablaresultsMouseClicked(MouseEvent e){
+        JTable table =(JTable) e.getSource();
+        Point point = e.getPoint();
+        int row = table.rowAtPoint(point);
+        if (e.getClickCount() == 2) {
+            String path = (String) table.getValueAt(row, 2);
+            try {
+                Runtime.getRuntime().exec("explorer.exe /select," + path);
+            } catch (IOException ex) {
+                
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
