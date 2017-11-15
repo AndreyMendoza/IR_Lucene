@@ -20,7 +20,7 @@ import org.apache.lucene.analysis.pattern.PatternTokenizer;
 public class ReferenceAnalyzer extends Analyzer{
     
     private CharArraySet stopwords;
-    private final Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]");
+    private final Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+");
 
 // -----------------------------------------------------------------------------
     

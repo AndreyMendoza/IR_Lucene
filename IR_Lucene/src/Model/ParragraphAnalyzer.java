@@ -21,7 +21,7 @@ import org.apache.lucene.analysis.snowball.SnowballFilter;
 public class ParragraphAnalyzer extends Analyzer{
     
     private CharArraySet stopwords;
-    private final Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]");
+    private final Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+");
 
 // -----------------------------------------------------------------------------
     

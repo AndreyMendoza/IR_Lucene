@@ -51,7 +51,7 @@ public class Index {
         articles = new ArrayList<>();
         read_stopwords();
         init_analyzer();
-        init_writer();
+        //init_writer();
     }
 
 // -----------------------------------------------------------------------------
@@ -64,7 +64,6 @@ public class Index {
         
         map.put("texto", parragraph);
         map.put("ref", reference);
-        
         analyzer = new PerFieldAnalyzerWrapper(new WhitespaceAnalyzer(), map);
     }
     
@@ -101,12 +100,13 @@ public class Index {
     }
 // -----------------------------------------------------------------------------
     
-    private void index_collection(ArrayList<String> continents)
+    public void index_collection(ArrayList<String> continents)
     {
         ArrayList<String> continent = new ArrayList<>();
-
+        
         try 
         {
+            init_writer();
             articles = read_collection(continents);            
             index_articles();    
         } 
